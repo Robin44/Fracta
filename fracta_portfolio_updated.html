@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRACTA - Arquitectura Biomimética | Portafolio Digital</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #3A5A40;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #A3BFD9 0%, #DAD2C8 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(58, 90, 64, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #F3F0EC;
+            text-decoration: none;
+            background: linear-gradient(45deg, #A35638, #A3BFD9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #F3F0EC;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #A3BFD9;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, #3A5A40 0%, #777C7C 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="fractal" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse"><circle cx="100" cy="100" r="3" fill="rgba(163,191,217,0.2)"/><circle cx="50" cy="50" r="2" fill="rgba(163,86,56,0.1)"/><circle cx="150" cy="150" r="2" fill="rgba(218,210,200,0.15)"/></pattern></defs><rect width="1000" height="1000" fill="url(%23fractal)"/></svg>') center/cover;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .hero-content {
+            z-index: 10;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #F3F0EC;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #DAD2C8;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #A35638, #A3BFD9);
+            color: #F3F0EC;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(163, 86, 56, 0.4);
+            background: linear-gradient(45deg, #A3BFD9, #A35638);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section:nth-child(even) {
+            background: #F3F0EC;
+        }
+
+        .section:nth-child(odd) {
+            background: #DAD2C8;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #3A5A40;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #A35638, #A3BFD9);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #3A5A40;
+        }
+
+        .about-visual {
+            background: linear-gradient(135deg, #3A5A40 0%, #777C7C 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            color: #F3F0EC;
+            box-shadow: 0 20px 40px rgba(58, 90, 64, 0.2);
+        }
+
+        .fractal-visual {
+            width: 100%;
+            height: 300px;
+            background: radial-gradient(circle at center, rgba(163,191,217,0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fractal-visual::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            background: conic-gradient(from 0deg, #A35638, #A3BFD9, #A35638);
+            border-radius: 50%;
+            animation: rotate 10s linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Project Showcase */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: #F3F0EC;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(58, 90, 64, 0.15);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(163, 191, 217, 0.3);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(58, 90, 64, 0.25);
+            border-color: #A3BFD9;
+        }
+
+        .project-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #A35638, #A3BFD9);
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #F3F0EC;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #3A5A40;
+        }
+
+        .project-description {
+            color: #777C7C;
+            line-height: 1.6;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category {
+            background: #F3F0EC;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(58, 90, 64, 0.1);
+            text-align: center;
+            border: 1px solid rgba(163, 191, 217, 0.2);
+        }
+
+        .skill-category h3 {
+            color: #3A5A40;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .skill-tag {
+            background: linear-gradient(45deg, #A35638, #A3BFD9);
+            color: #F3F0EC;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Strategy Section */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .strategy-card {
+            background: linear-gradient(135deg, #3A5A40 0%, #777C7C 100%);
+            color: #F3F0EC;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(58, 90, 64, 0.2);
+        }
+
+        .strategy-number {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #A3BFD9;
+        }
+
+        .strategy-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #DAD2C8;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-content p {
+            color: #777C7C;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #3A5A40 0%, #5A7A64 100%);
+            color: #F3F0EC;
+            text-decoration: none;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 8px 25px rgba(58, 90, 64, 0.3);
+            border: 2px solid transparent;
+        }
+
+        .contact-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(58, 90, 64, 0.4);
+            background: linear-gradient(135deg, #4A6A54 0%, #6A8A74 100%);
+            border-color: #A3BFD9;
+        }
+
+        .contact-link.email:hover {
+            background: linear-gradient(135deg, #A35638 0%, #B36648 100%);
+            border-color: #DAD2C8;
+        }
+
+        .contact-link.linkedin:hover {
+            background: linear-gradient(135deg, #0077B5 0%, #0099D4 100%);
+            border-color: #A3BFD9;
+        }
+
+        .contact-link.youtube:hover {
+            background: linear-gradient(135deg, #FF0000 0%, #FF3333 100%);
+            border-color: #F3F0EC;
+        }
+
+        /* Footer */
+        footer {
+            background: #3A5A40;
+            color: #DAD2C8;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Animation utilities */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .fade-in:nth-child(1) { animation-delay: 0.1s; }
+        .fade-in:nth-child(2) { animation-delay: 0.2s; }
+        .fade-in:nth-child(3) { animation-delay: 0.3s; }
+        .fade-in:nth-child(4) { animation-delay: 0.4s; }
+
+        /* Elementos específicos con nuevos colores */
+        .about-text h3 {
+            color: #A35638 !important;
+        }
+
+        .about-text .highlight-box {
+            background: linear-gradient(135deg, rgba(163,86,56,0.1), rgba(163,191,217,0.1));
+            border-left: 4px solid #A35638;
+        }
+
+        .about-text .highlight-box h4 {
+            color: #A35638;
+        }
+
+        .strategy-implementation {
+            background: #F3F0EC;
+            border: 1px solid rgba(163, 191, 217, 0.3);
+        }
+
+        .strategy-implementation h3 {
+            color: #3A5A40;
+        }
+
+        .strategy-implementation h4 {
+            color: #A35638;
+        }
+
+        .contact-quote {
+            color: #777C7C !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">FRACTA</a>
+            <ul class="nav-links">
+                <li><a href="#about">Concepto</a></li>
+                <li><a href="#projects">Proyectos</a></li>
+                <li><a href="#skills">Metodología</a></li>
+                <li><a href="#strategy">Estrategia</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>FRACTA</h1>
+            <p class="hero-subtitle">Arquitectura Biomimética que Reconecta</p>
+            <a href="#about" class="cta-button">Explorar Concepto</a>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">Concepto & Propósito</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <h3 style="color: #A35638; margin-bottom: 1rem; font-size: 1.5rem;">¿Qué es FRACTA?</h3>
+                    <p><strong>FRACTA</strong> es un concepto revolucionario de diseño arquitectónico biomimético que funciona como estudio creativo dedicado a la creación de estructuras, pabellones y espacios urbanos inspirados en patrones fractales y principios naturales.</p>
+                    
+                    <h3 style="color: #A35638; margin: 2rem 0 1rem 0; font-size: 1.5rem;">Propósito Principal</h3>
+                    <p>Reconectamos al ser humano con la naturaleza a través de espacios diseñados desde patrones orgánicos, resolviendo la deshumanización urbana actual y creando <strong>arquitectura emocionalmente significativa</strong> que cuenta historias a través de su morfología y experiencia sensorial.</p>
+                    
+                    <div class="highlight-box" style="margin-top: 2rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(163,86,56,0.1), rgba(163,191,217,0.1)); border-radius: 15px; border-left: 4px solid #A35638;">
+                        <h4 style="color: #A35638; margin-bottom: 0.5rem;">Etapa Actual</h4>
+                        <p><strong>Desarrollo conceptual avanzado</strong> con más de 30 prototipos digitales, pruebas de materiales sostenibles y networking estratégico consolidado.</p>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="fractal-visual"></div>
+                    <h3 style="margin-top: 1rem;">Patrones Fractales</h3>
+                    <p>Geometría inspirada en la naturaleza para crear espacios contemplativos y sensoriales únicos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title">Proyectos & Desarrollos</h2>
+            <div class="project-grid">
+                <div class="project-card fade-in">
+                    <div class="project-icon">🌿</div>
+                    <h3 class="project-title">Pabellones Orgánicos</h3>
+                    <p class="project-description">Más de 30 prototipos conceptuales de pabellones y torres orgánicas con morfología fractal, diseñados para crear espacios contemplativos urbanos que dialogan armónicamente con el entorno natural.</p>
+                </div>
+                <div class="project-card fade-in">
+                    <div class="project-icon">🧬</div>
+                    <h3 class="project-title">Materiales Biomiméticos</h3>
+                    <p class="project-description">Experimentación con biopolímeros, madera estructural y metal envejecido, desarrollando paletas cromáticas derivadas de entornos naturales para maximizar la experiencia sensorial.</p>
+                </div>
+                <div class="project-card fade-in">
+                    <div class="project-icon">🏛️</div>
+                    <h3 class="project-title">Espacios Narrativos</h3>
+                    <p class="project-description">Arquitectura que cuenta historias a través de su forma, creando microespacios emocionales y instalaciones que funcionan como herramientas de bienestar urbano y conexión sensorial.</p>
+                </div>
+                <div class="project-card fade-in">
+                    <div class="project-icon">🌐</div>
+                    <h3 class="project-title">Presentaciones Estratégicas</h3>
+                    <p class="project-description">FRACTA ha sido presentado en pitchs de emprendimiento creativo y sostenibilidad urbana con alta receptividad, generando networking con aliados estratégicos para implementaciones futuras.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title">Metodología & Tecnologías</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Diseño Biomimético</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Patrones Fractales</span>
+                        <span class="skill-tag">Diseño Paramétrico</span>
+                        <span class="skill-tag">Biomímesis</span>
+                        <span class="skill-tag">Slow Design</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Herramientas Digitales</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">SketchUp</span>
+                        <span class="skill-tag">Rhinoceros</span>
+                        <span class="skill-tag">Blender</span>
+                        <span class="skill-tag">Renderizado Fotorealista</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Enfoque Experiencial</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Arquitectura Narrativa</span>
+                        <span class="skill-tag">Diseño Emocional</span>
+                        <span class="skill-tag">Espacios Sensoriales</span>
+                        <span class="skill-tag">Bienestar Urbano</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="strategy" class="section">
+        <div class="container">
+            <h2 class="section-title">Plan Estratégico de Diferenciación</h2>
+            <div class="strategy-grid">
+                <div class="strategy-card fade-in">
+                    <div class="strategy-number">01</div>
+                    <h3 class="strategy-title">Especialización Única</h3>
+                    <p>Posicionamiento como el único estudio de arquitectura biomimética fractal en la región, creando un nicho exclusivo en espacios contemplativos y sensoriales urbanos.</p>
+                </div>
+                <div class="strategy-card fade-in">
+                    <div class="strategy-number">02</div>
+                    <h3 class="strategy-title">Networking Estratégico</h3>
+                    <p>Construcción de alianzas con desarrolladores urbanos, artistas visuales y organizaciones de sostenibilidad para generar proyectos piloto y testimonios vivenciales.</p>
+                </div>
+                <div class="strategy-card fade-in">
+                    <div class="strategy-number">03</div>
+                    <h3 class="strategy-title">Contenido Diferenciado</h3>
+                    <p>Creación de contenido educativo sobre biomímesis aplicada, estableciendo autoridad como experto en arquitectura emocional y espacios narrativos a través de casos de estudio únicos.</p>
+                </div>
+            </div>
+            
+            <div class="strategy-implementation" style="margin-top: 3rem; background: #F3F0EC; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(58, 90, 64, 0.1); border: 1px solid rgba(163, 191, 217, 0.3);">
+                <h3 style="color: #3A5A40; text-align: center; margin-bottom: 2rem; font-size: 1.5rem;">Implementación de Estrategias de Marca Personal</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                    <div>
+                        <h4 style="color: #A35638; margin-bottom: 1rem;">📱 Consistencia Digital</h4>
+                        <p>Unificación del mensaje biomimético en Instagram, LinkedIn y plataformas profesionales, manteniendo coherencia visual y conceptual.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #A35638; margin-bottom: 1rem;">🎯 Aporte de Valor</h4>
+                        <p>Compartir recursos educativos sobre diseño fractal, colaborar en webinars de arquitectura sostenible y participar en proyectos conjuntos.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #A35638; margin-bottom: 1rem;">🏆 Posicionamiento Expert</h4>
+                        <p>Establecimiento como referente en biomímesis arquitectónica a través de resultados tangibles y testimonios de la comunidad creativa.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Conectemos</h2>
+            <div class="contact-content">
+                <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #777C7C;">¿Interesado en colaborar en proyectos de arquitectura biomimética o explorar espacios que reconecten con la naturaleza?</p>
+                <div class="contact-links">
+                    <a href="mailto:arriazarobin2@gmail.com" class="contact-link email" target="_blank">
+                        📧 Email
+                    </a>
+                    <a href="https://www.linkedin.com/in/robin-arriaza/" class="contact-link linkedin" target="_blank">
+                        💼 LinkedIn
+                    </a>
+                    <a href="https://youtu.be/mEgEfbVfia0?si=-K62wFakEv51glJD" class="contact-link youtube" target="_blank">
+                        📺 Fracta YT
+                    </a>
+                </div>
+                <p class="contact-quote" style="margin-top: 2rem; font-style: italic; color: #777C7C;">"La naturaleza no solo inspira, sino que enseña principios fundamentales de diseño que aplicamos para crear espacios emocionalmente significativos."</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 FRACTA - Arquitectura Biomimética. Portafolio Digital Académico.</p>
+            <p style="margin-top: 0.5rem; opacity: 0.8;">Universidad da Vinci | Curso: Marca Personal y Emprendimiento</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header background opacity on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const scrolled = window.pageYOffset;
+            
+            if (scrolled > 100) {
+                header.style.background = 'rgba(58, 90, 64, 0.98)';
+            } else {
+                header.style.background = 'rgba(58, 90, 64, 0.95)';
+            }
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Dynamic fractal animation
+        function createFractalPattern() {
+            const visual = document.querySelector('.fractal-visual');
+            const colors = ['#A35638', '#A3BFD9', '#3A5A40', '#DAD2C8'];
+            
+            setInterval(() => {
+                const dot = document.createElement('div');
+                dot.style.position = 'absolute';
+                dot.style.width
